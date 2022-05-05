@@ -24,7 +24,7 @@ public abstract class BinaryExpression extends BaseExpression {
  * getter for the first expression.
  * @return exp1 - first expression in the binary expression.
  */
-    public Expression getFirstExpression() {
+    protected Expression getFirstExpression() {
         return this.exp1;
     }
 
@@ -32,7 +32,7 @@ public abstract class BinaryExpression extends BaseExpression {
  * getter for the second expression.
  * @return exp1 - second expression in the binary expression.
  */
-    public Expression getSecondExpression() {
+    protected Expression getSecondExpression() {
         return this.exp2;
     }
 
