@@ -18,7 +18,7 @@ public abstract class UnaryExpression extends BaseExpression {
  * a getter for the expression.
  * @return the expression.
  */
-    public Expression getExpression() {
+    protected Expression getExpression() {
         return this.expression;
     }
     /**
