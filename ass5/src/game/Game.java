@@ -162,6 +162,9 @@ public class Game {
         Ball ball2 = new Ball(new Point(400, 400), 10, Color.LIGHT_GRAY, this.environment);
         ball2.setVelocity(4, 4);
         ball2.addToGame(this);
+        Ball ball3 = new Ball(new Point(450, 450), 10, Color.LIGHT_GRAY, this.environment);
+        ball3.setVelocity(4, 4);
+        ball3.addToGame(this);
         // add paddle to game
         Paddle paddle = new Paddle(this.gui.getKeyboardSensor(), PADDLE_START_POINT);
         paddle.addToGame(this);
