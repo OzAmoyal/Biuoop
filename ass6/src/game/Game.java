@@ -2,6 +2,7 @@
 package game;
 
 import biuoop.GUI;
+import biuoop.KeyboardSensor;
 import biuoop.Sleeper;
 import biuoop.DrawSurface;
 import java.awt.Color;
@@ -18,7 +19,7 @@ public class Game implements Animation {
     private boolean running;
     private SpriteCollection sprites;
     private GameEnvironment environment;
-    private GUI gui;
+    private KeyboardSensor keyboard;
     private Counter remainingBlocks;
     private Counter remainingBalls;
     private BlockRemover blockRemover;
@@ -46,45 +47,57 @@ public class Game implements Animation {
         this.environment = new GameEnvironment();
 
     }
-    public boolean shouldStop() {
-         return !this.running;
-         }
-    public void doOneFrame(DrawSurface d) {
-        
-        // the logic from the previous run method goes here.
-      // the `return` or `break` statements should be replaced with
-      // this.running = false; 
-      d.setColor(BGCOLOR);
-      d.fillRectangle(0, 0, GUI_WIDTH, GUI_HEIGHT);
-      // draw objects.
-      this.sprites.drawAllOn(d);
-      //this.gui.show(d);
-      this.sprites.notifyAllTimePassed();
-      
-      if (remainingBlocks.getValue() == 0) {
-        this.scoreCounter.increase(100);
+    private boolean isWinner(){
+    return remainingBlocks.getValue() == 0;
     }
-    this.running = (this.remainingBlocks.getValue() > 0 && this.remainingBalls.getValue() > 0);
+    public boolean shouldStop() {
+        return !this.running;
+    }
+
+    public void doOneFrame(DrawSurface d) {
+
+        // the logic from the previous run method goes here.
+        // the `return` or `break` statements should be replaced with
+        // this.running = false;
+
+        // draw objects.
+        this.sprites.drawAllOn(d);
+        // this.gui.show(d);
+        this.sprites.notifyAllTimePassed();
+
+        if (isWinner()) {
+            this.scoreCounter.increase(100);
+        }
+        if (this.keyboard.isPressed("p")) {
+            this.runner.run(new PauseScreen(this.keyboard));
+        }
+        this.running = (this.remainingBlocks.getValue() > 0 && this.remainingBalls.getValue() > 0);
 
     }
-/**
- * getter for the blockRemover object.
- * @return this.blockRemover - the BlockRemover object.
- */
+
+    /**
+     * getter for the blockRemover object.
+     * 
+     * @return this.blockRemover - the BlockRemover object.
+     */
     public BlockRemover getBlockRemover() {
         return this.blockRemover;
     }
-/**
- * getter for the Counter of the remaining blocks object .
- * @return this.remainingBlocks the Counter object for remaining blocks.
- */
+
+    /**
+     * getter for the Counter of the remaining blocks object .
+     * 
+     * @return this.remainingBlocks the Counter object for remaining blocks.
+     */
     public Counter getRemainingBlocks() {
         return this.remainingBlocks;
     }
-/**
- * getter for the Counter of the remaining balls object .
- * @return this.remainingBalls the Counter object for remaining balls.
- */
+
+    /**
+     * getter for the Counter of the remaining balls object .
+     * 
+     * @return this.remainingBalls the Counter object for remaining balls.
+     */
     public Counter getRemainingBalls() {
         return this.remainingBalls;
     }
@@ -107,23 +120,31 @@ public class Game implements Animation {
         this.sprites.addSprite(s);
     }
 
-    /**
-     * add walls,blocks balls and a paddle to the game.
-     * create a gui object and add all the necessary objects to play a game
-     */
-    public void initialize() {
-        
-        // gui object initialize
-        this.gui = new GUI("Arkanoid", GUI_WIDTH, GUI_HEIGHT);
-        this.sleeper = new Sleeper();
-        this.runner=new AnimationRunner(gui, sleeper, FPS);
-        this.remainingBalls = new Counter(0);
-        this.ballRemover = new BallRemover(this, remainingBalls);
-        this.remainingBlocks = new Counter(0);
-        this.scoreCounter = new Counter(0);
-        this.scoreListener = new ScoreTrackingListener(scoreCounter);
-        ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCounter, new Point(0, 0), SCOREBOARD_SIZE, GUI_WIDTH);
-        this.addSprite(scoreIndicator);
+    private void createBackground() {
+        Block background=new Block(new Point(0, 0), BGCOLOR, GUI_HEIGHT, GUI_WIDTH);
+        addSprite(background);
+    }
+    private void createBallsOnTopOfPaddle() {
+        // add balls to game
+        Ball ball = new Ball(new Point(500, 400), 10, Color.LIGHT_GRAY, this.environment);
+        ball.setVelocity(4, -4);
+        ball.addToGame(this);
+        Ball ball2 = new Ball(new Point(400, 400), 10, Color.LIGHT_GRAY, this.environment);
+        ball2.setVelocity(4, -4);
+        ball2.addToGame(this);
+        Ball ball3 = new Ball(new Point(450, 450), 10, Color.LIGHT_GRAY, this.environment);
+        ball3.setVelocity(4, -4);
+        ball3.addToGame(this);
+    }
+
+    private void createPaddle() {
+        // add paddle to game
+        Paddle paddle = new Paddle(this.keyboard, PADDLE_START_POINT);
+        paddle.addToGame(this);
+
+    }
+
+    private void createWalls() {
         // add walls to game
         Block leftWall = new Block(new Point(0, SCOREBOARD_SIZE + BORDER_SIZE), Color.DARK_GRAY, GUI_HEIGHT,
                 BORDER_SIZE);
@@ -131,7 +152,7 @@ public class Game implements Animation {
         Block rightWall = new Block(new Point(GUI_WIDTH - BORDER_SIZE, SCOREBOARD_SIZE + BORDER_SIZE), Color.DARK_GRAY,
                 GUI_HEIGHT, BORDER_SIZE);
         Block bottomWall = new Block(new Point(0, GUI_HEIGHT - 1), Color.DARK_GRAY, 1, GUI_WIDTH);
-        bottomWall.addHitListener(ballRemover);
+        bottomWall.addHitListener(this.ballRemover);
         this.addCollidable(topWall);
         this.addCollidable(bottomWall);
         this.addCollidable(rightWall);
@@ -140,8 +161,11 @@ public class Game implements Animation {
         this.addSprite(bottomWall);
         this.addSprite(leftWall);
         this.addSprite(rightWall);
+
+    }
+
+    private void createBlocks() {
         // add blocks to game
-        this.blockRemover = new BlockRemover(this, remainingBlocks);
         for (int i = 230; i < (GUI_WIDTH - BORDER_SIZE); i += 50) {
             Block block = new Block(new Point(i, 200), Color.LIGHT_GRAY, BLOCK_HEIGHT, BLOCK_WIDTH);
             block.addToGame(this);
@@ -183,19 +207,43 @@ public class Game implements Animation {
             block.addHitListener(scoreListener);
 
         }
-        // add balls to game
-        Ball ball = new Ball(new Point(500, 400), 10, Color.LIGHT_GRAY, this.environment);
-        ball.setVelocity(4, 4);
-        ball.addToGame(this);
-        Ball ball2 = new Ball(new Point(400, 400), 10, Color.LIGHT_GRAY, this.environment);
-        ball2.setVelocity(4, 4);
-        ball2.addToGame(this);
-        Ball ball3 = new Ball(new Point(450, 450), 10, Color.LIGHT_GRAY, this.environment);
-        ball3.setVelocity(4, 4);
-        ball3.addToGame(this);
-        // add paddle to game
-        Paddle paddle = new Paddle(this.gui.getKeyboardSensor(), PADDLE_START_POINT);
-        paddle.addToGame(this);
+
+    }
+    private void createTestBlock(){
+        Block block = new Block(new Point(250, 200), Color.LIGHT_GRAY, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block.addToGame(this);
+        block.addHitListener(this.blockRemover);
+        block.addHitListener(scoreListener);
+    }
+    private void countdown(){
+    CountdownAnimation cAnimation=new CountdownAnimation(3, 3, this.sprites);
+    this.runner.run(cAnimation);
+    }
+
+    /**
+     * add walls,blocks balls and a paddle to the game.
+     * create a gui object and add all the necessary objects to play a game
+     */
+    public void initialize() {
+
+        // gui object initialize
+        GUI gui = new GUI("Arkanoid", GUI_WIDTH, GUI_HEIGHT);
+        this.keyboard = gui.getKeyboardSensor();
+        this.sleeper = new Sleeper();
+        this.runner = new AnimationRunner(gui, sleeper, FPS);
+        this.remainingBalls = new Counter(0);
+        this.ballRemover = new BallRemover(this, remainingBalls);
+        this.remainingBlocks = new Counter(0);
+        this.scoreCounter = new Counter(0);
+        this.scoreListener = new ScoreTrackingListener(scoreCounter);
+        this.blockRemover = new BlockRemover(this, remainingBlocks);
+        this.createBackground();
+        ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCounter, new Point(0, 0), SCOREBOARD_SIZE, GUI_WIDTH);
+        this.addSprite(scoreIndicator);
+        this.createWalls();
+        this.createBlocks();
+        //this.createTestBlock();
+        this.createPaddle();
 
     }
 
@@ -203,58 +251,32 @@ public class Game implements Animation {
      * run the game and calculate the time needed to wait for each frame.
      */
     public void run() {
-        //this.createBallsOnTopOfPaddle(); // or a similar method
         this.running = true;
+        this.countdown();
+        this.createBallsOnTopOfPaddle();
         this.runner.run(this);
-        /*Sleeper sleeper = new Sleeper();
-        // fps calculation
-        int framesPerSecond = 60;
-        int millisecondsPerFrame = 1000 / framesPerSecond;
-        while (this.remainingBlocks.getValue() > 0 && this.remainingBalls.getValue() != 0) {
-
-            long startTime = System.currentTimeMillis();
-            DrawSurface d = gui.getDrawSurface();
-            // background color
-            d.setColor(BGCOLOR);
-            d.fillRectangle(0, 0, GUI_WIDTH, GUI_HEIGHT);
-            // draw objects.
-            this.sprites.drawAllOn(d);
-            this.gui.show(d);
-            this.sprites.notifyAllTimePassed();
-            // timing
-            long usedTime = System.currentTimeMillis() - startTime;
-            long milliSecondLeftToSleep = millisecondsPerFrame - usedTime;
-            if (milliSecondLeftToSleep > 0) {
-                sleeper.sleepFor(milliSecondLeftToSleep);
-            }
+        if(this.isWinner())
+        {
+            this.runner.run(new WinScreen(this.scoreCounter.getValue()));
         }
-        if (remainingBlocks.getValue() == 0) {
-            this.scoreCounter.increase(100);
-        }
-        DrawSurface d = gui.getDrawSurface();
-        d.setColor(BGCOLOR);
-        d.fillRectangle(0, 0, GUI_WIDTH, GUI_HEIGHT);
-        this.sprites.drawAllOn(d);
-        this.gui.show(d);
-        this.sprites.notifyAllTimePassed();
-        sleeper.sleepFor(MILLISECONDS_BEFOREQUIT);
-
-        gui.close();
-        return;
-*/
+        
     }
-/**
- * removes a collidable object from the GameEnviornment.
- * @param c collidable object to remove from the enviornment.
- */
+
+    /**
+     * removes a collidable object from the GameEnviornment.
+     * 
+     * @param c collidable object to remove from the enviornment.
+     */
     public void removeCollidable(Collidable c) {
         this.environment.removeCollidable(c);
 
     }
-/**
- * removes a Sprite object from the SpriteCollection.
- * @param s Sprite object to remove from the SpriteCollection.
- */
+
+    /**
+     * removes a Sprite object from the SpriteCollection.
+     * 
+     * @param s Sprite object to remove from the SpriteCollection.
+     */
     public void removeSprite(Sprite s) {
         this.sprites.removeSprite(s);
 

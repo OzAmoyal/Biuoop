@@ -42,7 +42,9 @@ public class Block implements Collidable, Sprite, HitNotifier {
         return this.rectangle;
 
     }
-
+    public java.awt.Color getColor(){
+        return this.color;
+    }
     /**
      * calculates the velocity of the Sprite after the hit.
      * @param collisionPoint  - the point of the hit in the block
