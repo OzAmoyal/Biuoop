@@ -12,7 +12,7 @@ public class AnimationRunner {
         this.framesPerSecond=framesPerSecond;
     }
     public void run(Animation animation) {
-       int millisecondsPerFrame = this.framesPerSecond;
+       int millisecondsPerFrame = 1000 / this.framesPerSecond;
        while (!animation.shouldStop()) {
           DrawSurface d = gui.getDrawSurface();
           long startTime = System.currentTimeMillis(); // timing

@@ -36,7 +36,7 @@ public class Game implements Animation {
     static final int BLOCK_HEIGHT = 20;
     static final Color BGCOLOR = new Color(0, 0, 128);
     static final int MILLISECONDS_BEFOREQUIT = 3000;
-    static final int FPS = 30;
+    static final int FPS = 60;
 
     /**
      * constructor for a new Game Object.
