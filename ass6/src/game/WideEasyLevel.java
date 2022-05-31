@@ -5,7 +5,7 @@ import geometry.Point;
 import geometry.Line;
 import java.awt.Color;
 public class WideEasyLevel implements LevelInformation {
-    private final int NUMOFBALLS=2;
+    private final int NUMOFBALLS=10;
     private int numberOfBlocks;
     private final int PADDLE_SPEED=10;
     private final int PADDLE_WIDTH=600;

@@ -6,10 +6,10 @@ import geometry.Point;
 import geometry.Line;
 import java.awt.Color;
 public class FinalFourLevel implements LevelInformation {
-    private final int NUMOFBALLS=2;
+    private final int NUMOFBALLS=3;
     private int numberOfBlocks;
     private final int PADDLE_SPEED=10;
-    private final int PADDLE_WIDTH=600;
+    private final int PADDLE_WIDTH=100;
     private final String LEVEL_NAME="Final Four";
     private final int BLOCK_WIDTH = 51;
     private final int BLOCK_HEIGHT = 20;
@@ -24,12 +24,12 @@ public class FinalFourLevel implements LevelInformation {
     @Override
     public List<Velocity> initialBallVelocities() {
         List<Velocity> vList = new ArrayList<Velocity>();
-        for(int i=1;i<=5;i++){
-            Velocity vel1=new Velocity(6-i,-i);
-            Velocity vel2=new Velocity(i-6, i);
-            vList.add(vel1);
-            vList.add(vel2);
-        }
+        Velocity vel1=new Velocity(0, -5);
+        Velocity vel2=new Velocity(-3, -4);
+        Velocity vel3=new Velocity(3, -4);
+        vList.add(vel1);
+        vList.add(vel2);
+        vList.add(vel3);
         return vList;
     }
 
@@ -119,10 +119,10 @@ public class FinalFourLevel implements LevelInformation {
         blocks.add(block);
         block = new Block(new Point(i, 280), Color.CYAN, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
+        numberOfBlocks+=7;
         
         }
         
-        this.numberOfBlocks=15;
         
         return blocks;
     }
