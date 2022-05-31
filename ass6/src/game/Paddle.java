@@ -17,8 +17,7 @@ import geometry.Point;
 public class Paddle implements Sprite, Collidable {
     private biuoop.KeyboardSensor keyboard;
     private Rectangle paddle;
-    private static final int PADDLE_MOVE = 10;
-    public static final int PADDLE_WIDTH = 100;
+    private int paddleSpeed;
     public static final int PADDLE_HEIGHT = 20;
     private static final java.awt.Color PADDLE_COLOR = Color.ORANGE;
 
@@ -28,9 +27,11 @@ public class Paddle implements Sprite, Collidable {
      * @param keyboard   keyboard sensor
      * @param startPoint a point the paddle starts in.
      */
-    public Paddle(KeyboardSensor keyboard, Point startPoint) {
+    public Paddle(KeyboardSensor keyboard, Point startPoint,int paddleWidth,int paddleSpeed) {
         this.keyboard = keyboard;
-        this.paddle = new Rectangle(startPoint, PADDLE_WIDTH, PADDLE_HEIGHT);
+        this.paddle = new Rectangle(startPoint, paddleWidth, PADDLE_HEIGHT);
+        this.paddleSpeed=paddleSpeed;
+        
     }
 
     /**
@@ -41,7 +42,7 @@ public class Paddle implements Sprite, Collidable {
      */
     private boolean isLeftBorderCrossed(Point p) {
 
-        return (int) p.getX() < (int) Game.BORDER_SIZE;
+        return (int) p.getX() < (int) GameLevel.BORDER_SIZE;
     }
 
     /**
@@ -51,17 +52,17 @@ public class Paddle implements Sprite, Collidable {
      * @return true if border is crossed, false otherwise.
      */
     private boolean isRightBorderCrossed(Point p) {
-        return (int) p.getX() + PADDLE_WIDTH > (int) (Game.GUI_WIDTH - Game.BORDER_SIZE);
+        return (int) p.getX() + this.paddle.getWidth() > (int) (GameLevel.GUI_WIDTH - GameLevel.BORDER_SIZE);
     }
 
     /**
      * moves the paddle to the left and keeps the paddle is in the borders.
      */
     public void moveLeft() {
-        Point newP = new Point((this.paddle.getUpperLeft().getX() - PADDLE_MOVE), this.paddle.getUpperLeft().getY());
+        Point newP = new Point((this.paddle.getUpperLeft().getX() - this.paddleSpeed), this.paddle.getUpperLeft().getY());
         // check if paddle is in the borders.
         if (this.isLeftBorderCrossed(newP)) {
-            newP = new Point(Game.BORDER_SIZE, this.paddle.getUpperLeft().getY());
+            newP = new Point(GameLevel.BORDER_SIZE, this.paddle.getUpperLeft().getY());
         }
         this.paddle = new Rectangle(newP, this.paddle.getWidth(), this.paddle.getHeight());
     }
@@ -70,10 +71,10 @@ public class Paddle implements Sprite, Collidable {
      * moves the paddle to the right and keeps the paddle is in the borders.
      */
     public void moveRight() {
-        Point newP = new Point(this.paddle.getUpperLeft().getX() + PADDLE_MOVE, this.paddle.getUpperLeft().getY());
+        Point newP = new Point(this.paddle.getUpperLeft().getX() + this.paddleSpeed, this.paddle.getUpperLeft().getY());
         // check if the paddle is in borders.
         if (this.isRightBorderCrossed(newP)) {
-            newP = new Point(Game.GUI_WIDTH - Game.BORDER_SIZE - PADDLE_WIDTH, this.paddle.getUpperLeft().getY());
+            newP = new Point(GameLevel.GUI_WIDTH - GameLevel.BORDER_SIZE - this.paddleSpeed, this.paddle.getUpperLeft().getY());
         }
         this.paddle = new Rectangle(newP, this.paddle.getWidth(), this.paddle.getHeight());
     }
@@ -102,7 +103,7 @@ public class Paddle implements Sprite, Collidable {
     public void drawOn(DrawSurface d) {
         d.setColor(PADDLE_COLOR);
         d.fillRectangle((int) (Math.round(this.paddle.getUpperLeft().getX())),
-                (int) (Math.round(this.paddle.getUpperLeft().getY())), PADDLE_WIDTH, PADDLE_HEIGHT);
+                (int) (Math.round(this.paddle.getUpperLeft().getY())),(int) this.paddle.getWidth(), PADDLE_HEIGHT);
         d.setColor(java.awt.Color.BLACK);
         for (Line wall : this.paddle.getRectWallsList()) {
             d.drawLine((int) Math.round(wall.getStartX()), (int) Math.round(wall.getStartY()),
@@ -128,8 +129,8 @@ public class Paddle implements Sprite, Collidable {
      * @return 0-4 int repressenting the hit region of the paddle.
      */
     private int getHitRegion(Point cPoint) {
-        double hitValue = this.paddle.getUpperLeft().getX() + PADDLE_WIDTH - cPoint.getX();
-        int division = PADDLE_WIDTH / 5;
+        double hitValue = this.paddle.getUpperLeft().getX() + this.paddle.getWidth() - cPoint.getX();
+        int division = (int) (this.paddle.getWidth() / 5);
         return (int) Math.floor(hitValue / division);
 
     }
@@ -180,7 +181,7 @@ public class Paddle implements Sprite, Collidable {
      *
      * @param g the game to add the paddle to.
      */
-    public void addToGame(Game g) {
+    public void addToGame(GameLevel g) {
         g.addCollidable(this);
         g.addSprite(this);
     }

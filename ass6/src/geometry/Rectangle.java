@@ -1,17 +1,22 @@
 //oz amoyal 207231663
 package geometry;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+
+import biuoop.DrawSurface;
+import game.Sprite;
 
 /**
  * decribes a rectagnle with an upper left point,width and height.
  * @author ozamoyal
  */
-public class Rectangle {
+public class Rectangle implements Sprite{
     private Point upperLeft;
     private double width;
     private double height;
+    private java.awt.Color color=Color.BLACK;
 
     /**
      * constructor for a new rectangle with Point object stating its upper left
@@ -73,7 +78,9 @@ public class Rectangle {
         return walls;
 
     }
-
+    public void setColor(java.awt.Color color){
+    this.color=color;
+    }
     /**
      * checks if rectagnle and a line intersects, and returns a list of intersection
      * points if so.
@@ -117,5 +124,17 @@ public class Rectangle {
      */
     public Point getUpperLeft() {
         return this.upperLeft;
+    }
+
+    @Override
+    public void drawOn(DrawSurface d) {
+        d.setColor(this.color);
+        d.fillRectangle((int)this.upperLeft.getX(), (int) this.upperLeft.getY(),(int) this.width,(int) this.height);
+        
+    }
+
+    @Override
+    public void timePassed() {
+        
     }
 }

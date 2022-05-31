@@ -3,15 +3,19 @@ package geometry;
 
 import java.util.List;
 
+import biuoop.DrawSurface;
+import game.Sprite;
+
 /**
  * class Line describes a Line using start and end point.
  * @author ozamoyal
  */
-public class Line {
+public class Line implements Sprite{
     private Point start;
     private Point end;
     private Double slope;
     private Double b;
+    private java.awt.Color color=java.awt.Color.BLACK;
     // constructors
 
     /**
@@ -121,6 +125,13 @@ public class Line {
      */
     public Point end() {
         return this.end;
+    }
+    /**
+     * setter for the color of the line.
+     * @param color - the desired color
+     */
+    public void setColor(java.awt.Color color){
+        this.color=color;
     }
 
     /**
@@ -304,5 +315,17 @@ public class Line {
         }
         // System.out.println(interList.get(index));
         return interList.get(index);
+    }
+    
+    @Override
+    public void drawOn(DrawSurface d) {
+        d.setColor(this.color);
+        d.drawLine((int)start.getX(),(int) start.getY(),(int) end.getX(),(int) end.getY());
+        
+    }
+
+    @Override
+    public void timePassed() {
+        
     }
 }

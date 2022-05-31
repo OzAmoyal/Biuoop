@@ -15,6 +15,7 @@ public class ScoreIndicator implements Sprite {
     private Point upLeftPoint;
     private double height;
     private double width;
+    private String levelName;
     private static final Color SCORE_BAR_COLOR = Color.lightGray;
 
     /**
@@ -26,11 +27,13 @@ public class ScoreIndicator implements Sprite {
      * @param height       -height of the block
      * @param width        -width of the block
      */
-    public ScoreIndicator(Counter scoreCounter, Point upLeftPoint, double height, double width) {
+    public ScoreIndicator(Counter scoreCounter, Point upLeftPoint, double height, double width,String levelName) {
         this.scoreCounter = scoreCounter;
         this.upLeftPoint = upLeftPoint;
         this.height = height;
         this.width = width;
+        this.levelName=levelName;
+
 
     }
 
@@ -43,7 +46,7 @@ public class ScoreIndicator implements Sprite {
         d.setColor(Color.BLACK);
         int textX = (int) (this.upLeftPoint.getX() + this.width) / 2;
         int textY = (int) (this.upLeftPoint.getY() + this.height) / 2;
-        d.drawText(textX, textY, "Score: " + this.scoreCounter.getValue(), 12);
+        d.drawText(textX, textY, "Score: " + this.scoreCounter.getValue()+"      Level Name : "+this.levelName, 12);
 
     }
 

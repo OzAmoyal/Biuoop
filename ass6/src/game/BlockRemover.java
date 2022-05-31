@@ -6,14 +6,14 @@ package game;
  @author ozamoyal
 */
 public class BlockRemover implements HitListener {
-    private Game game;
+    private GameLevel game;
     private Counter remainingBlocks;
 /**
  * Counstructor to a BlockRemover getting a Game refrence and a refrence to a Counter for remaining blocks.
  * @param game the game refrence
  * @param remainingBlocks refrence to a Counter object that counts the remaining blocks.
  */
-    public BlockRemover(Game game, Counter remainingBlocks) {
+    public BlockRemover(GameLevel game, Counter remainingBlocks) {
         this.game = game;
         this.remainingBlocks = remainingBlocks;
 

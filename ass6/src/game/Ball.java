@@ -1,6 +1,8 @@
 //oz amoyal 207231663
 package game;
 
+import java.awt.Color;
+
 import biuoop.DrawSurface;
 import geometry.Point;
 import geometry.Line;
@@ -116,6 +118,8 @@ public class Ball implements Sprite {
     public void drawOn(DrawSurface surface) {
         surface.setColor(this.color);
         surface.fillCircle(this.getX(), this.getY(), this.radius);
+        surface.setColor(Color.BLACK);
+        surface.drawCircle(this.getX(), this.getY(), this.radius);
     }
 
     /**
@@ -192,7 +196,7 @@ public class Ball implements Sprite {
      * adds the ball to the Game object.
      * @param g game object to add the ball to it.
      */
-    public void addToGame(Game g) {
+    public void addToGame(GameLevel g) {
         g.addSprite(this);
         g.getRemainingBalls().increase(1);
 
@@ -201,7 +205,7 @@ public class Ball implements Sprite {
      * removes the ball to the Game object.
      * @param game game object to remove the ball to it.
      */
-    public void removeFromGame(Game game) {
+    public void removeFromGame(GameLevel game) {
         game.removeSprite(this);
 
     }

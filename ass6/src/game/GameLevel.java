@@ -14,7 +14,7 @@ import geometry.Point;
  *
  * @author ozamoyal
  */
-public class Game implements Animation {
+public class GameLevel implements Animation {
     private AnimationRunner runner;
     private boolean running;
     private SpriteCollection sprites;
@@ -27,25 +27,28 @@ public class Game implements Animation {
     private Counter scoreCounter;
     private ScoreTrackingListener scoreListener;
     private Sleeper sleeper;
+    private LevelInformation levelInformation;
     public static final int GUI_WIDTH = 800;
     static final int GUI_HEIGHT = 600;
     public static final int BORDER_SIZE = 20;
     public static final int SCOREBOARD_SIZE = 20;
-    static final Point PADDLE_START_POINT = new Point((GUI_WIDTH - Paddle.PADDLE_WIDTH) / 2,
-            (GUI_HEIGHT - BORDER_SIZE - Paddle.PADDLE_HEIGHT));
     static final int BLOCK_WIDTH = 50;
     static final int BLOCK_HEIGHT = 20;
     static final Color BGCOLOR = new Color(0, 0, 128);
     static final int MILLISECONDS_BEFOREQUIT = 3000;
     static final int FPS = 60;
+    static final int BALL_RADIUS=7;
 
     /**
-     * constructor for a new Game Object.
+     * constructor for a new GameLevel Object.
+     * @param levelInformation - holds all the information about the current level
      */
-    public Game() {
+   
+    public GameLevel(LevelInformation levelInformation)
+    {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
-
+        this.levelInformation=levelInformation;
     }
     private boolean isWinner(){
     return remainingBlocks.getValue() == 0;
@@ -121,25 +124,26 @@ public class Game implements Animation {
     }
 
     private void createBackground() {
-        Block background=new Block(new Point(0, 0), BGCOLOR, GUI_HEIGHT, GUI_WIDTH);
-        addSprite(background);
+        this.addSprite(levelInformation.getBackground());
     }
     private void createBallsOnTopOfPaddle() {
         // add balls to game
-        Ball ball = new Ball(new Point(500, 400), 10, Color.LIGHT_GRAY, this.environment);
-        ball.setVelocity(4, -4);
-        ball.addToGame(this);
-        Ball ball2 = new Ball(new Point(400, 400), 10, Color.LIGHT_GRAY, this.environment);
-        ball2.setVelocity(4, -4);
-        ball2.addToGame(this);
-        Ball ball3 = new Ball(new Point(450, 450), 10, Color.LIGHT_GRAY, this.environment);
-        ball3.setVelocity(4, -4);
-        ball3.addToGame(this);
+        Point paddleStartPoint = paddleStartPoint();
+        Point startPoint = new Point(paddleStartPoint.getX()+(levelInformation.paddleWidth()/2), paddleStartPoint.getY()-BALL_RADIUS);
+        for(Velocity vel : levelInformation.initialBallVelocities()){
+            Ball ball = new Ball(startPoint, BALL_RADIUS, Color.lightGray, this.environment);
+            ball.setVelocity(vel);
+            ball.addToGame(this);
+        }
     }
-
+private Point paddleStartPoint(){
+    return new Point((GUI_WIDTH - this.levelInformation.paddleWidth()) / 2,
+    (GUI_HEIGHT - BORDER_SIZE - Paddle.PADDLE_HEIGHT));
+}
     private void createPaddle() {
+       Point startPoint = this.paddleStartPoint();
         // add paddle to game
-        Paddle paddle = new Paddle(this.keyboard, PADDLE_START_POINT);
+        Paddle paddle = new Paddle(this.keyboard, startPoint,this.levelInformation.paddleWidth(),this.levelInformation.paddleSpeed());
         paddle.addToGame(this);
 
     }
@@ -164,7 +168,7 @@ public class Game implements Animation {
 
     }
 
-    private void createBlocks() {
+   /* private void createBlocks() {
         // add blocks to game
         for (int i = 230; i < (GUI_WIDTH - BORDER_SIZE); i += 50) {
             Block block = new Block(new Point(i, 200), Color.LIGHT_GRAY, BLOCK_HEIGHT, BLOCK_WIDTH);
@@ -208,16 +212,20 @@ public class Game implements Animation {
 
         }
 
-    }
+    }*/
     private void createTestBlock(){
         Block block = new Block(new Point(250, 200), Color.LIGHT_GRAY, BLOCK_HEIGHT, BLOCK_WIDTH);
         block.addToGame(this);
         block.addHitListener(this.blockRemover);
         block.addHitListener(scoreListener);
     }
-    private void countdown(){
-    CountdownAnimation cAnimation=new CountdownAnimation(3, 3, this.sprites);
-    this.runner.run(cAnimation);
+    private void createBlocks(){
+        for(Block block : levelInformation.blocks())
+        {
+        block.addToGame(this);
+        block.addHitListener(this.blockRemover);
+        block.addHitListener(scoreListener);
+        }
     }
 
     /**
@@ -238,7 +246,7 @@ public class Game implements Animation {
         this.scoreListener = new ScoreTrackingListener(scoreCounter);
         this.blockRemover = new BlockRemover(this, remainingBlocks);
         this.createBackground();
-        ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCounter, new Point(0, 0), SCOREBOARD_SIZE, GUI_WIDTH);
+        ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCounter, new Point(0, 0), SCOREBOARD_SIZE, GUI_WIDTH,levelInformation.levelName());
         this.addSprite(scoreIndicator);
         this.createWalls();
         this.createBlocks();
@@ -251,8 +259,8 @@ public class Game implements Animation {
      * run the game and calculate the time needed to wait for each frame.
      */
     public void run() {
+        this.runner.run(new CountdownAnimation(3, 3, this.sprites));
         this.running = true;
-        this.countdown();
         this.createBallsOnTopOfPaddle();
         this.runner.run(this);
         if(this.isWinner())
