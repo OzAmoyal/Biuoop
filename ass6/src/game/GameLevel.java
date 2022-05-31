@@ -248,8 +248,8 @@ private Point paddleStartPoint(){
         this.createBackground();
         ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCounter, new Point(0, 0), SCOREBOARD_SIZE, GUI_WIDTH,levelInformation.levelName());
         this.addSprite(scoreIndicator);
-        this.createWalls();
         this.createBlocks();
+        this.createWalls();
         //this.createTestBlock();
         this.createPaddle();
 
