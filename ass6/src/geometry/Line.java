@@ -4,7 +4,7 @@ package geometry;
 import java.util.List;
 
 import biuoop.DrawSurface;
-import game.Sprite;
+import game.interfaces.Sprite;
 
 /**
  * class Line describes a Line using start and end point.

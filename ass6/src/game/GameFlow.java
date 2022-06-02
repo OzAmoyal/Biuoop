@@ -4,6 +4,13 @@ package game;
 
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
+import game.animations.AnimationRunner;
+import game.animations.GameLevel;
+import game.animations.KeyPressStoppableAnimation;
+import game.animations.LoseScreen;
+import game.animations.WinScreen;
+import game.interfaces.LevelInformation;
+
 import java.util.List;
 /**
  * GameFlow class used for maintaining and managing the game flow.
@@ -17,7 +24,7 @@ public class GameFlow {
    private Counter scoreCounter;
    static final int FPS = 60;
    public static final int GUI_WIDTH = 800;
-   static final int GUI_HEIGHT = 600;
+   public static final int GUI_HEIGHT = 600;
 /**
  * constructor for a GameFlow object.
  * @param ar animation runner object to run the animations

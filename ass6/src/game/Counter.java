@@ -18,7 +18,7 @@ public class Counter {
      *  add a number to current count.
      * @param number the number to increase count by.
      */
-    void increase(int number) {
+    public void increase(int number) {
         this.count += number;
     }
 
@@ -26,7 +26,7 @@ public class Counter {
      *  decrase a number from a current count.
      * @param number the number to decrease count by.
      */
-    void decrease(int number) {
+    public void decrease(int number) {
         this.count -= number;
 
     }
@@ -35,7 +35,7 @@ public class Counter {
      * get current count.
      * @return current count int value.
      */
-    int getValue() {
+    public int getValue() {
         return count;
     }
 }

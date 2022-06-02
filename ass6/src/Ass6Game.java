@@ -6,13 +6,13 @@ import java.util.List;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
 import biuoop.Sleeper;
-import game.AnimationRunner;
-import game.DirectHitLevel;
-import game.FinalFourLevel;
 import game.GameFlow;
-import game.Green3Level;
-import game.LevelInformation;
-import game.WideEasyLevel;
+import game.animations.AnimationRunner;
+import game.interfaces.LevelInformation;
+import game.levels.DirectHitLevel;
+import game.levels.FinalFourLevel;
+import game.levels.Green3Level;
+import game.levels.WideEasyLevel;
 
 /**
  * class to call the functions and play the game.

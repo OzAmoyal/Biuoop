@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import biuoop.DrawSurface;
-import game.Sprite;
+import game.interfaces.Sprite;
 
 /**
  * decribes a rectagnle with an upper left point,width and height.
