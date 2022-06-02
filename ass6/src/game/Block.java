@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * class Block implements Collidable and Sprite interface describes an object in
  * the game.
+ *
  * @author ozamoyal
  */
 public class Block implements Collidable, Sprite, HitNotifier {
@@ -22,6 +23,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     /**
      * constructor for block using Point,Color,width and height.
+     *
      * @param upLeftPoint -up left point of the block
      * @param color       - color of the block
      * @param height      -height of the block
@@ -35,6 +37,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     /**
      * getter for the rectangle representing the block.
+     *
      * @return this.rectangle
      */
     @Override
@@ -42,11 +45,17 @@ public class Block implements Collidable, Sprite, HitNotifier {
         return this.rectangle;
 
     }
-    public java.awt.Color getColor(){
+/**
+ * a getter for the color of the block.
+ * @return the color of the block.
+ */
+    public java.awt.Color getColor() {
         return this.color;
     }
+
     /**
      * calculates the velocity of the Sprite after the hit.
+     *
      * @param collisionPoint  - the point of the hit in the block
      * @param currentVelocity - the current velocity of the object that hit the
      *                        block
@@ -79,6 +88,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     /**
      * draw the block on the DrawSurface.
+     *
      * @param d - the drawSurface Object to draw on
      */
     public void drawOn(DrawSurface d) {
@@ -95,6 +105,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     /**
      * adds the block to the game as a Collidable object and a Sprite.
+     *
      * @param g the game to add the block to
      */
     public void addToGame(GameLevel g) {
@@ -105,6 +116,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     /**
      * removes the block to the game as a Collidable object and a Sprite.
+     *
      * @param game the game to remove the block to
      */
     public void removeFromGame(GameLevel game) {
@@ -125,10 +137,12 @@ public class Block implements Collidable, Sprite, HitNotifier {
         this.hitListeners.remove(hl);
 
     }
-/**
- * notifies all the listeners that there was a hit in this block.
- * @param hitter the ball object that hit the block.
- */
+
+    /**
+     * notifies all the listeners that there was a hit in this block.
+     *
+     * @param hitter the ball object that hit the block.
+     */
     private void notifyHit(Ball hitter) {
         // Make a copy of the hitListeners before iterating over them.
         List<HitListener> listeners = new ArrayList<HitListener>(this.hitListeners);

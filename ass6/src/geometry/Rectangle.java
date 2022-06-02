@@ -12,11 +12,11 @@ import game.Sprite;
  * decribes a rectagnle with an upper left point,width and height.
  * @author ozamoyal
  */
-public class Rectangle implements Sprite{
+public class Rectangle implements Sprite {
     private Point upperLeft;
     private double width;
     private double height;
-    private java.awt.Color color=Color.BLACK;
+    private java.awt.Color color = Color.BLACK;
 
     /**
      * constructor for a new rectangle with Point object stating its upper left
@@ -78,8 +78,12 @@ public class Rectangle implements Sprite{
         return walls;
 
     }
-    public void setColor(java.awt.Color color){
-    this.color=color;
+    /**
+     * setter for Color field.
+     * @param color - the color desired.
+     */
+    public void setColor(java.awt.Color color) {
+    this.color = color;
     }
     /**
      * checks if rectagnle and a line intersects, and returns a list of intersection
@@ -129,12 +133,10 @@ public class Rectangle implements Sprite{
     @Override
     public void drawOn(DrawSurface d) {
         d.setColor(this.color);
-        d.fillRectangle((int)this.upperLeft.getX(), (int) this.upperLeft.getY(),(int) this.width,(int) this.height);
-        
+        d.fillRectangle((int) this.upperLeft.getX(), (int) this.upperLeft.getY(), (int) this.width, (int) this.height);
     }
 
     @Override
     public void timePassed() {
-        
     }
 }

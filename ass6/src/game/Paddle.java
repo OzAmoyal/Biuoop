@@ -26,12 +26,13 @@ public class Paddle implements Sprite, Collidable {
      *
      * @param keyboard   keyboard sensor
      * @param startPoint a point the paddle starts in.
+     * @param paddleWidth the width of the paddle
+     * @param paddleSpeed the speed of the movement of the paddle.
      */
-    public Paddle(KeyboardSensor keyboard, Point startPoint,int paddleWidth,int paddleSpeed) {
+    public Paddle(KeyboardSensor keyboard, Point startPoint, int paddleWidth, int paddleSpeed) {
         this.keyboard = keyboard;
         this.paddle = new Rectangle(startPoint, paddleWidth, PADDLE_HEIGHT);
-        this.paddleSpeed=paddleSpeed;
-        
+        this.paddleSpeed = paddleSpeed;
     }
 
     /**
@@ -59,7 +60,8 @@ public class Paddle implements Sprite, Collidable {
      * moves the paddle to the left and keeps the paddle is in the borders.
      */
     public void moveLeft() {
-        Point newP = new Point((this.paddle.getUpperLeft().getX() - this.paddleSpeed), this.paddle.getUpperLeft().getY());
+        Point newP = new Point((this.paddle.getUpperLeft().getX() - this.paddleSpeed),
+         this.paddle.getUpperLeft().getY());
         // check if paddle is in the borders.
         if (this.isLeftBorderCrossed(newP)) {
             newP = new Point(GameLevel.BORDER_SIZE, this.paddle.getUpperLeft().getY());
@@ -74,7 +76,8 @@ public class Paddle implements Sprite, Collidable {
         Point newP = new Point(this.paddle.getUpperLeft().getX() + this.paddleSpeed, this.paddle.getUpperLeft().getY());
         // check if the paddle is in borders.
         if (this.isRightBorderCrossed(newP)) {
-            newP = new Point(GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE - this.paddle.getWidth(), this.paddle.getUpperLeft().getY());
+            newP = new Point(GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE - this.paddle.getWidth(),
+            this.paddle.getUpperLeft().getY());
         }
         this.paddle = new Rectangle(newP, this.paddle.getWidth(), this.paddle.getHeight());
     }
@@ -103,7 +106,7 @@ public class Paddle implements Sprite, Collidable {
     public void drawOn(DrawSurface d) {
         d.setColor(PADDLE_COLOR);
         d.fillRectangle((int) (Math.round(this.paddle.getUpperLeft().getX())),
-                (int) (Math.round(this.paddle.getUpperLeft().getY())),(int) this.paddle.getWidth(), PADDLE_HEIGHT);
+                (int) (Math.round(this.paddle.getUpperLeft().getY())), (int) this.paddle.getWidth(), PADDLE_HEIGHT);
         d.setColor(java.awt.Color.BLACK);
         for (Line wall : this.paddle.getRectWallsList()) {
             d.drawLine((int) Math.round(wall.getStartX()), (int) Math.round(wall.getStartY()),

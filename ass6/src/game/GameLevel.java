@@ -25,39 +25,40 @@ public class GameLevel implements Animation {
     private Counter scoreCounter;
     private ScoreTrackingListener scoreListener;
     private LevelInformation levelInformation;
-    public static final int BORDER_SIZE = 20;
+    public static final int BORDER_SIZE = 10;
     public static final int SCOREBOARD_SIZE = 20;
     static final int FPS = 60;
-    static final int BALL_RADIUS=7;
+    static final int BALL_RADIUS = 7;
 
     /**
      * constructor for a new GameLevel Object.
+     *
      * @param levelInformation - holds all the information about the current level
+     * @param aRunner          - animationrunner object for the level
+     * @param ks               - keyboard sensor for current level.
+     * @param scoreCounter     - ScoreCounter to keep track of the score.
      */
-   
-    public GameLevel(LevelInformation levelInformation,AnimationRunner aRunner,KeyboardSensor ks,Counter scoreCounter)
-    {
+
+    public GameLevel(LevelInformation levelInformation, AnimationRunner aRunner, KeyboardSensor ks,
+            Counter scoreCounter) {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
-        this.levelInformation=levelInformation;
-        this.runner=aRunner;
-        this.keyboard=ks;
-        this.scoreCounter =scoreCounter;
+        this.levelInformation = levelInformation;
+        this.runner = aRunner;
+        this.keyboard = ks;
+        this.scoreCounter = scoreCounter;
     }
-    private boolean isWinner(){
-    return remainingBlocks.getValue() == 0;
+
+    private boolean isWinner() {
+        return remainingBlocks.getValue() == 0;
     }
+    @Override
     public boolean shouldStop() {
         return !(this.running);
-        
+
     }
-
+    @Override
     public void doOneFrame(DrawSurface d) {
-
-        // the logic from the previous run method goes here.
-        // the `return` or `break` statements should be replaced with
-        // this.running = false;
-
         // draw objects.
         this.sprites.drawAllOn(d);
         // this.gui.show(d);
@@ -75,7 +76,7 @@ public class GameLevel implements Animation {
 
     /**
      * getter for the blockRemover object.
-     * 
+     *
      * @return this.blockRemover - the BlockRemover object.
      */
     public BlockRemover getBlockRemover() {
@@ -84,7 +85,7 @@ public class GameLevel implements Animation {
 
     /**
      * getter for the Counter of the remaining blocks object .
-     * 
+     *
      * @return this.remainingBlocks the Counter object for remaining blocks.
      */
     public Counter getRemainingBlocks() {
@@ -93,7 +94,7 @@ public class GameLevel implements Animation {
 
     /**
      * getter for the Counter of the remaining balls object .
-     * 
+     *
      * @return this.remainingBalls the Counter object for remaining balls.
      */
     public Counter getRemainingBalls() {
@@ -121,24 +122,29 @@ public class GameLevel implements Animation {
     private void createBackground() {
         this.addSprite(levelInformation.getBackground());
     }
+
     private void createBallsOnTopOfPaddle() {
         // add balls to game
         Point paddleStartPoint = paddleStartPoint();
-        Point startPoint = new Point(paddleStartPoint.getX()+(levelInformation.paddleWidth()/2), paddleStartPoint.getY()-BALL_RADIUS);
-        for(Velocity vel : levelInformation.initialBallVelocities()){
+        Point startPoint = new Point(paddleStartPoint.getX() + (levelInformation.paddleWidth() / 2),
+                paddleStartPoint.getY() - BALL_RADIUS);
+        for (Velocity vel : levelInformation.initialBallVelocities()) {
             Ball ball = new Ball(startPoint, BALL_RADIUS, Color.lightGray, this.environment);
             ball.setVelocity(vel);
             ball.addToGame(this);
         }
     }
-private Point paddleStartPoint(){
-    return new Point((GameFlow.GUI_WIDTH - this.levelInformation.paddleWidth()) / 2,
-    (GameFlow.GUI_HEIGHT - BORDER_SIZE - Paddle.PADDLE_HEIGHT));
-}
+
+    private Point paddleStartPoint() {
+        return new Point((GameFlow.GUI_WIDTH - this.levelInformation.paddleWidth()) / 2,
+                (GameFlow.GUI_HEIGHT - BORDER_SIZE - Paddle.PADDLE_HEIGHT));
+    }
+
     private void createPaddle() {
-       Point startPoint = this.paddleStartPoint();
+        Point startPoint = this.paddleStartPoint();
         // add paddle to game
-        Paddle paddle = new Paddle(this.keyboard, startPoint,this.levelInformation.paddleWidth(),this.levelInformation.paddleSpeed());
+        Paddle paddle = new Paddle(this.keyboard, startPoint, this.levelInformation.paddleWidth(),
+                this.levelInformation.paddleSpeed());
         paddle.addToGame(this);
 
     }
@@ -148,7 +154,8 @@ private Point paddleStartPoint(){
         Block leftWall = new Block(new Point(0, SCOREBOARD_SIZE + BORDER_SIZE), Color.DARK_GRAY, GameFlow.GUI_HEIGHT,
                 BORDER_SIZE);
         Block topWall = new Block(new Point(0, SCOREBOARD_SIZE), Color.DARK_GRAY, BORDER_SIZE, GameFlow.GUI_WIDTH);
-        Block rightWall = new Block(new Point(GameFlow.GUI_WIDTH - BORDER_SIZE, SCOREBOARD_SIZE + BORDER_SIZE), Color.DARK_GRAY,
+        Block rightWall = new Block(new Point(GameFlow.GUI_WIDTH - BORDER_SIZE, SCOREBOARD_SIZE + BORDER_SIZE),
+                Color.DARK_GRAY,
                 GameFlow.GUI_HEIGHT, BORDER_SIZE);
         Block bottomWall = new Block(new Point(0, GameFlow.GUI_HEIGHT - 1), Color.DARK_GRAY, 1, GameFlow.GUI_WIDTH);
         bottomWall.addHitListener(this.ballRemover);
@@ -163,12 +170,11 @@ private Point paddleStartPoint(){
 
     }
 
-    private void createBlocks(){
-        for(Block block : levelInformation.blocks())
-        {
-        block.addToGame(this);
-        block.addHitListener(this.blockRemover);
-        block.addHitListener(scoreListener);
+    private void createBlocks() {
+        for (Block block : levelInformation.blocks()) {
+            block.addToGame(this);
+            block.addHitListener(this.blockRemover);
+            block.addHitListener(scoreListener);
         }
     }
 
@@ -184,7 +190,8 @@ private Point paddleStartPoint(){
         this.scoreListener = new ScoreTrackingListener(scoreCounter);
         this.blockRemover = new BlockRemover(this, remainingBlocks);
         this.createBackground();
-        ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCounter, new Point(0, 0), SCOREBOARD_SIZE, GameFlow.GUI_WIDTH,levelInformation.levelName());
+        ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCounter, new Point(0, 0), SCOREBOARD_SIZE,
+                GameFlow.GUI_WIDTH, levelInformation.levelName());
         this.addSprite(scoreIndicator);
         this.createBlocks();
         this.createWalls();
@@ -200,12 +207,12 @@ private Point paddleStartPoint(){
         this.runner.run(new CountdownAnimation(3, 3, this.sprites));
         this.running = true;
         this.runner.run(this);
-        this.running=false;
+        this.running = false;
     }
 
     /**
      * removes a collidable object from the GameEnviornment.
-     * 
+     *
      * @param c collidable object to remove from the enviornment.
      */
     public void removeCollidable(Collidable c) {
@@ -215,7 +222,7 @@ private Point paddleStartPoint(){
 
     /**
      * removes a Sprite object from the SpriteCollection.
-     * 
+     *
      * @param s Sprite object to remove from the SpriteCollection.
      */
     public void removeSprite(Sprite s) {

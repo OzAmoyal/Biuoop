@@ -20,20 +20,20 @@ public class ScoreIndicator implements Sprite {
 
     /**
      * constructor for ScoreIndicator using scoreCounter,Point,Color,width and
-     * height.
+     * height and the name of the level.
      *
      * @param scoreCounter -refrence to the score Counter object.
      * @param upLeftPoint  -up left point of the block
      * @param height       -height of the block
      * @param width        -width of the block
+     * @param levelName    -the name of the level
      */
-    public ScoreIndicator(Counter scoreCounter, Point upLeftPoint, double height, double width,String levelName) {
+    public ScoreIndicator(Counter scoreCounter, Point upLeftPoint, double height, double width, String levelName) {
         this.scoreCounter = scoreCounter;
         this.upLeftPoint = upLeftPoint;
         this.height = height;
         this.width = width;
-        this.levelName=levelName;
-
+        this.levelName = levelName;
 
     }
 
@@ -46,7 +46,7 @@ public class ScoreIndicator implements Sprite {
         d.setColor(Color.BLACK);
         int textX = (int) (this.upLeftPoint.getX() + this.width) / 2;
         int textY = (int) (this.upLeftPoint.getY() + this.height) / 2;
-        d.drawText(textX, textY, "Score: " + this.scoreCounter.getValue()+"      Level Name : "+this.levelName, 12);
+        d.drawText(textX, textY, "Score: " + this.scoreCounter.getValue() + "      Level Name : " + this.levelName, 12);
 
     }
 

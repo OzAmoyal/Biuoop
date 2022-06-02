@@ -1,20 +1,31 @@
+//oz amoyal 207231663
 package game;
+
 import java.util.ArrayList;
 import java.util.List;
 import geometry.Point;
 import geometry.Line;
 import java.awt.Color;
+/**
+ * class for a level in the game with wide paddle and 10 balls.
+ * @author ozamoyal
+ */
+
 public class WideEasyLevel implements LevelInformation {
-    private final int NUMOFBALLS=10;
+    private static final int NUMOFBALLS = 10;
     private int numberOfBlocks;
-    private final int PADDLE_SPEED=10;
-    private final int PADDLE_WIDTH=600;
-    private final String LEVEL_NAME="Wide Easy";
-    private final int BLOCK_WIDTH = 51;
-    private final int BLOCK_HEIGHT = 20;
-    public WideEasyLevel(){
+    private static final int PADDLE_SPEED = 10;
+    private static final int PADDLE_WIDTH = 600;
+    private static final String LEVEL_NAME = "Wide Easy";
+    private static final int BLOCK_WIDTH = 51;
+    private static final int BLOCK_HEIGHT = 20;
+/**
+ * constructor for the level.
+ */
+    public WideEasyLevel() {
         numberOfBlocks = 0;
     }
+
     @Override
     public int numberOfBalls() {
         return NUMOFBALLS;
@@ -23,9 +34,9 @@ public class WideEasyLevel implements LevelInformation {
     @Override
     public List<Velocity> initialBallVelocities() {
         List<Velocity> vList = new ArrayList<Velocity>();
-        for(int i=1;i<=5;i++){
-            Velocity vel1=new Velocity(6-i,-i);
-            Velocity vel2=new Velocity(i-6, i);
+        for (int i = 1; i <= 5; i++) {
+            Velocity vel1 = new Velocity(6 - i, -i);
+            Velocity vel2 = new Velocity(i - 6, i);
             vList.add(vel1);
             vList.add(vel2);
         }
@@ -44,39 +55,37 @@ public class WideEasyLevel implements LevelInformation {
 
     @Override
     public String levelName() {
-        
+
         return LEVEL_NAME;
     }
 
     @Override
     public Sprite getBackground() {
-        Background background=new Background();
-        Block bgBlock=new Block(new Point(0, 0), Color.WHITE, GameFlow.GUI_HEIGHT, GameFlow.GUI_WIDTH);
+        Background background = new Background();
+        Block bgBlock = new Block(new Point(0, 0), Color.WHITE, GameFlow.GUI_HEIGHT, GameFlow.GUI_WIDTH);
         background.addToBackground(bgBlock);
-        Point cPoint= new Point(130,150);
-        for(int i=20;i<=780;i+=10)
-        {
-            Line sunLight=new Line(cPoint,new Point(i, 300));
+        Point cPoint = new Point(130, 150);
+        for (int i = 20; i <= 780; i += 10) {
+            Line sunLight = new Line(cPoint, new Point(i, 300));
             sunLight.setColor(new Color(255, 204, 0));
             background.addToBackground(sunLight);
         }
-        FilledCircle light=new FilledCircle(cPoint, 60);
+        FilledCircle light = new FilledCircle(cPoint, 60);
         light.setColor(new Color(255, 251, 208));
         background.addToBackground(light);
-        light=new FilledCircle(cPoint, 50);
+        light = new FilledCircle(cPoint, 50);
         light.setColor(new Color(255, 204, 0));
         background.addToBackground(light);
-        light=new FilledCircle(cPoint, 40);
+        light = new FilledCircle(cPoint, 40);
         light.setColor(Color.YELLOW);
         background.addToBackground(light);
-
 
         return background;
     }
 
     @Override
     public List<Block> blocks() {
-        List<Block> blocks=new ArrayList<Block>();
+        List<Block> blocks = new ArrayList<Block>();
         Block block = new Block(new Point(20, 300), Color.RED, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
         block = new Block(new Point(71, 300), Color.RED, BLOCK_HEIGHT, BLOCK_WIDTH);
@@ -108,9 +117,8 @@ public class WideEasyLevel implements LevelInformation {
         block = new Block(new Point(729, 300), Color.CYAN, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
 
-        
-        this.numberOfBlocks=15;
-        
+        this.numberOfBlocks = 15;
+
         return blocks;
     }
 
@@ -119,5 +127,4 @@ public class WideEasyLevel implements LevelInformation {
         return numberOfBlocks;
     }
 
-    
 }
