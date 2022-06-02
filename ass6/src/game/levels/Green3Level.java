@@ -104,25 +104,25 @@ public class Green3Level implements LevelInformation {
     @Override
     public List<Block> blocks() {
         List<Block> blocks = new ArrayList<Block>();
-        for (int i = 280; i < (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
+        for (int i = 290; i < (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
             Block block = new Block(new Point(i, 200), Color.LIGHT_GRAY, BLOCK_HEIGHT, BLOCK_WIDTH);
             blocks.add(block);
             this.numberOfBlocks += 1;
 
         }
-        for (int i = 330; i < (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
+        for (int i = 340; i < (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
             Block block = new Block(new Point(i, 220), Color.YELLOW, BLOCK_HEIGHT, BLOCK_WIDTH);
             blocks.add(block);
             this.numberOfBlocks += 1;
 
         }
-        for (int i = 380; i < (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
+        for (int i = 390; i < (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
             Block block = new Block(new Point(i, 240), Color.RED, BLOCK_HEIGHT, BLOCK_WIDTH);
             blocks.add(block);
             this.numberOfBlocks += 1;
 
         }
-        for (int i = 430; i < (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
+        for (int i = 440; i < (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
             Block block = new Block(new Point(i, 260), Color.BLUE, BLOCK_HEIGHT, BLOCK_WIDTH);
             blocks.add(block);
             this.numberOfBlocks += 1;

@@ -25,7 +25,7 @@ public class WideEasyLevel implements LevelInformation {
     private static final int PADDLE_SPEED = 10;
     private static final int PADDLE_WIDTH = 600;
     private static final String LEVEL_NAME = "Wide Easy";
-    private static final int BLOCK_WIDTH = 51;
+    private static final int BLOCK_WIDTH = 52;
     private static final int BLOCK_HEIGHT = 20;
 /**
  * constructor for the level.
@@ -94,35 +94,35 @@ public class WideEasyLevel implements LevelInformation {
     @Override
     public List<Block> blocks() {
         List<Block> blocks = new ArrayList<Block>();
-        Block block = new Block(new Point(20, 300), Color.RED, BLOCK_HEIGHT, BLOCK_WIDTH);
+        Block block = new Block(new Point(10, 300), Color.RED, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
-        block = new Block(new Point(71, 300), Color.RED, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block = new Block(new Point(62, 300), Color.RED, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
-        block = new Block(new Point(122, 300), Color.ORANGE, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block = new Block(new Point(114, 300), Color.ORANGE, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
-        block = new Block(new Point(173, 300), Color.ORANGE, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block = new Block(new Point(166, 300), Color.ORANGE, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
-        block = new Block(new Point(224, 300), Color.YELLOW, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block = new Block(new Point(218, 300), Color.YELLOW, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
-        block = new Block(new Point(275, 300), Color.YELLOW, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block = new Block(new Point(270, 300), Color.YELLOW, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
-        block = new Block(new Point(326, 300), Color.GREEN, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block = new Block(new Point(322, 300), Color.GREEN, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
-        block = new Block(new Point(377, 300), Color.GREEN, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block = new Block(new Point(374, 300), Color.GREEN, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
-        block = new Block(new Point(428, 300), Color.GREEN, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block = new Block(new Point(426, 300), Color.GREEN, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
-        block = new Block(new Point(479, 300), Color.BLUE, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block = new Block(new Point(478, 300), Color.BLUE, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
         block = new Block(new Point(530, 300), Color.BLUE, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
-        block = new Block(new Point(581, 300), Color.PINK, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block = new Block(new Point(582, 300), Color.PINK, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
-        block = new Block(new Point(632, 300), Color.PINK, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block = new Block(new Point(634, 300), Color.PINK, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
-        block = new Block(new Point(683, 300), Color.CYAN, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block = new Block(new Point(686, 300), Color.CYAN, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
-        block = new Block(new Point(729, 300), Color.CYAN, BLOCK_HEIGHT, BLOCK_WIDTH);
+        block = new Block(new Point(738, 300), Color.CYAN, BLOCK_HEIGHT, BLOCK_WIDTH);
         blocks.add(block);
 
         this.numberOfBlocks = 15;

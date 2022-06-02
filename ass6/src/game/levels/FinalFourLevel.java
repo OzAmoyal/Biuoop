@@ -24,7 +24,7 @@ public class FinalFourLevel implements LevelInformation {
     private static final int PADDLE_SPEED = 10;
     private static final int PADDLE_WIDTH = 100;
     private static final String LEVEL_NAME = "Final Four";
-    private static final int BLOCK_WIDTH = 51;
+    private static final int BLOCK_WIDTH = 52;
     private static final int BLOCK_HEIGHT = 20;
 /**
  * constructor for the level object.
@@ -119,7 +119,7 @@ public class FinalFourLevel implements LevelInformation {
     @Override
     public List<Block> blocks() {
         List<Block> blocks = new ArrayList<Block>();
-        for (int i = 20; i <= 740; i += BLOCK_WIDTH) {
+        for (int i = 10; i <= 762; i += BLOCK_WIDTH) {
             Block block = new Block(new Point(i, 160), Color.DARK_GRAY, BLOCK_HEIGHT, BLOCK_WIDTH);
             blocks.add(block);
             block = new Block(new Point(i, 180), Color.RED, BLOCK_HEIGHT, BLOCK_WIDTH);
