@@ -49,7 +49,7 @@ public class DirectHitLevel implements LevelInformation {
     @Override
     public Sprite getBackground() {
         Background background=new Background();
-        Block bgBlock=new Block(new Point(0, 0), Color.BLACK, GameLevel.GUI_HEIGHT, GameLevel.GUI_WIDTH);
+        Block bgBlock=new Block(new Point(0, 0), Color.BLACK, GameFlow.GUI_HEIGHT, GameFlow.GUI_WIDTH);
         background.addToBackground(bgBlock);
         int lineLength=150;
         Line vLine=new Line(new Point(CPOINT.getX(), CPOINT.getY()-lineLength), new Point(CPOINT.getX(), CPOINT.getY()+lineLength));

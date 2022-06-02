@@ -51,7 +51,7 @@ public class WideEasyLevel implements LevelInformation {
     @Override
     public Sprite getBackground() {
         Background background=new Background();
-        Block bgBlock=new Block(new Point(0, 0), Color.WHITE, GameLevel.GUI_HEIGHT, GameLevel.GUI_WIDTH);
+        Block bgBlock=new Block(new Point(0, 0), Color.WHITE, GameFlow.GUI_HEIGHT, GameFlow.GUI_WIDTH);
         background.addToBackground(bgBlock);
         Point cPoint= new Point(130,150);
         for(int i=20;i<=780;i+=10)

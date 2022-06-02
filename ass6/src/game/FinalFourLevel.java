@@ -52,7 +52,7 @@ public class FinalFourLevel implements LevelInformation {
     @Override
     public Sprite getBackground() {
         Background background=new Background();
-        Block bgBlock=new Block(new Point(0, 0),new Color(0, 130, 240), GameLevel.GUI_HEIGHT, GameLevel.GUI_WIDTH);
+        Block bgBlock=new Block(new Point(0, 0),new Color(0, 130, 240), GameFlow.GUI_HEIGHT, GameFlow.GUI_WIDTH);
         background.addToBackground(bgBlock);
         FilledCircle cloud1=new FilledCircle(new Point(200, 400), 20);
         cloud1.setColor(Color.LIGHT_GRAY);

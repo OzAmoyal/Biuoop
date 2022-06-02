@@ -1,9 +1,7 @@
 //oz amoyal 207231663
 package game;
 
-import biuoop.GUI;
 import biuoop.KeyboardSensor;
-import biuoop.Sleeper;
 import biuoop.DrawSurface;
 import java.awt.Color;
 
@@ -26,16 +24,9 @@ public class GameLevel implements Animation {
     private BallRemover ballRemover;
     private Counter scoreCounter;
     private ScoreTrackingListener scoreListener;
-    private Sleeper sleeper;
     private LevelInformation levelInformation;
-    public static final int GUI_WIDTH = 800;
-    static final int GUI_HEIGHT = 600;
     public static final int BORDER_SIZE = 20;
     public static final int SCOREBOARD_SIZE = 20;
-    static final int BLOCK_WIDTH = 50;
-    static final int BLOCK_HEIGHT = 20;
-    static final Color BGCOLOR = new Color(0, 0, 128);
-    static final int MILLISECONDS_BEFOREQUIT = 3000;
     static final int FPS = 60;
     static final int BALL_RADIUS=7;
 
@@ -44,17 +35,21 @@ public class GameLevel implements Animation {
      * @param levelInformation - holds all the information about the current level
      */
    
-    public GameLevel(LevelInformation levelInformation)
+    public GameLevel(LevelInformation levelInformation,AnimationRunner aRunner,KeyboardSensor ks,Counter scoreCounter)
     {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
         this.levelInformation=levelInformation;
+        this.runner=aRunner;
+        this.keyboard=ks;
+        this.scoreCounter =scoreCounter;
     }
     private boolean isWinner(){
     return remainingBlocks.getValue() == 0;
     }
     public boolean shouldStop() {
-        return !this.running;
+        return !(this.running);
+        
     }
 
     public void doOneFrame(DrawSurface d) {
@@ -67,12 +62,12 @@ public class GameLevel implements Animation {
         this.sprites.drawAllOn(d);
         // this.gui.show(d);
         this.sprites.notifyAllTimePassed();
+        if (this.keyboard.isPressed("p")) {
+            this.runner.run(new KeyPressStoppableAnimation(this.keyboard, "space", new PauseScreen(this.keyboard)));
+        }
 
         if (isWinner()) {
             this.scoreCounter.increase(100);
-        }
-        if (this.keyboard.isPressed("p")) {
-            this.runner.run(new PauseScreen(this.keyboard));
         }
         this.running = (this.remainingBlocks.getValue() > 0 && this.remainingBalls.getValue() > 0);
 
@@ -137,8 +132,8 @@ public class GameLevel implements Animation {
         }
     }
 private Point paddleStartPoint(){
-    return new Point((GUI_WIDTH - this.levelInformation.paddleWidth()) / 2,
-    (GUI_HEIGHT - BORDER_SIZE - Paddle.PADDLE_HEIGHT));
+    return new Point((GameFlow.GUI_WIDTH - this.levelInformation.paddleWidth()) / 2,
+    (GameFlow.GUI_HEIGHT - BORDER_SIZE - Paddle.PADDLE_HEIGHT));
 }
     private void createPaddle() {
        Point startPoint = this.paddleStartPoint();
@@ -150,12 +145,12 @@ private Point paddleStartPoint(){
 
     private void createWalls() {
         // add walls to game
-        Block leftWall = new Block(new Point(0, SCOREBOARD_SIZE + BORDER_SIZE), Color.DARK_GRAY, GUI_HEIGHT,
+        Block leftWall = new Block(new Point(0, SCOREBOARD_SIZE + BORDER_SIZE), Color.DARK_GRAY, GameFlow.GUI_HEIGHT,
                 BORDER_SIZE);
-        Block topWall = new Block(new Point(0, SCOREBOARD_SIZE), Color.DARK_GRAY, BORDER_SIZE, GUI_WIDTH);
-        Block rightWall = new Block(new Point(GUI_WIDTH - BORDER_SIZE, SCOREBOARD_SIZE + BORDER_SIZE), Color.DARK_GRAY,
-                GUI_HEIGHT, BORDER_SIZE);
-        Block bottomWall = new Block(new Point(0, GUI_HEIGHT - 1), Color.DARK_GRAY, 1, GUI_WIDTH);
+        Block topWall = new Block(new Point(0, SCOREBOARD_SIZE), Color.DARK_GRAY, BORDER_SIZE, GameFlow.GUI_WIDTH);
+        Block rightWall = new Block(new Point(GameFlow.GUI_WIDTH - BORDER_SIZE, SCOREBOARD_SIZE + BORDER_SIZE), Color.DARK_GRAY,
+                GameFlow.GUI_HEIGHT, BORDER_SIZE);
+        Block bottomWall = new Block(new Point(0, GameFlow.GUI_HEIGHT - 1), Color.DARK_GRAY, 1, GameFlow.GUI_WIDTH);
         bottomWall.addHitListener(this.ballRemover);
         this.addCollidable(topWall);
         this.addCollidable(bottomWall);
@@ -168,57 +163,6 @@ private Point paddleStartPoint(){
 
     }
 
-   /* private void createBlocks() {
-        // add blocks to game
-        for (int i = 230; i < (GUI_WIDTH - BORDER_SIZE); i += 50) {
-            Block block = new Block(new Point(i, 200), Color.LIGHT_GRAY, BLOCK_HEIGHT, BLOCK_WIDTH);
-            block.addToGame(this);
-            block.addHitListener(this.blockRemover);
-            block.addHitListener(scoreListener);
-        }
-        for (int i = 280; i < (GUI_WIDTH - BORDER_SIZE); i += 50) {
-            Block block = new Block(new Point(i, 220), Color.YELLOW, BLOCK_HEIGHT, BLOCK_WIDTH);
-            block.addToGame(this);
-            block.addHitListener(this.blockRemover);
-            block.addHitListener(scoreListener);
-
-        }
-        for (int i = 330; i < (GUI_WIDTH - BORDER_SIZE); i += 50) {
-            Block block = new Block(new Point(i, 240), Color.RED, BLOCK_HEIGHT, BLOCK_WIDTH);
-            block.addToGame(this);
-            block.addHitListener(this.blockRemover);
-            block.addHitListener(scoreListener);
-
-        }
-        for (int i = 380; i < (GUI_WIDTH - BORDER_SIZE); i += 50) {
-            Block block = new Block(new Point(i, 260), Color.BLUE, BLOCK_HEIGHT, BLOCK_WIDTH);
-            block.addToGame(this);
-            block.addHitListener(this.blockRemover);
-            block.addHitListener(scoreListener);
-
-        }
-        for (int i = 430; i < (GUI_WIDTH - BORDER_SIZE); i += 50) {
-            Block block = new Block(new Point(i, 280), Color.PINK, BLOCK_HEIGHT, BLOCK_WIDTH);
-            block.addToGame(this);
-            block.addHitListener(this.blockRemover);
-            block.addHitListener(scoreListener);
-
-        }
-        for (int i = 480; i < (GUI_WIDTH - BORDER_SIZE); i += 50) {
-            Block block = new Block(new Point(i, 300), Color.GREEN, BLOCK_HEIGHT, BLOCK_WIDTH);
-            block.addToGame(this);
-            block.addHitListener(this.blockRemover);
-            block.addHitListener(scoreListener);
-
-        }
-
-    }*/
-    private void createTestBlock(){
-        Block block = new Block(new Point(250, 200), Color.LIGHT_GRAY, BLOCK_HEIGHT, BLOCK_WIDTH);
-        block.addToGame(this);
-        block.addHitListener(this.blockRemover);
-        block.addHitListener(scoreListener);
-    }
     private void createBlocks(){
         for(Block block : levelInformation.blocks())
         {
@@ -234,24 +178,18 @@ private Point paddleStartPoint(){
      */
     public void initialize() {
 
-        // gui object initialize
-        GUI gui = new GUI("Arkanoid", GUI_WIDTH, GUI_HEIGHT);
-        this.keyboard = gui.getKeyboardSensor();
-        this.sleeper = new Sleeper();
-        this.runner = new AnimationRunner(gui, sleeper, FPS);
         this.remainingBalls = new Counter(0);
         this.ballRemover = new BallRemover(this, remainingBalls);
         this.remainingBlocks = new Counter(0);
-        this.scoreCounter = new Counter(0);
         this.scoreListener = new ScoreTrackingListener(scoreCounter);
         this.blockRemover = new BlockRemover(this, remainingBlocks);
         this.createBackground();
-        ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCounter, new Point(0, 0), SCOREBOARD_SIZE, GUI_WIDTH,levelInformation.levelName());
+        ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCounter, new Point(0, 0), SCOREBOARD_SIZE, GameFlow.GUI_WIDTH,levelInformation.levelName());
         this.addSprite(scoreIndicator);
         this.createBlocks();
         this.createWalls();
-        //this.createTestBlock();
         this.createPaddle();
+        this.createBallsOnTopOfPaddle();
 
     }
 
@@ -261,13 +199,8 @@ private Point paddleStartPoint(){
     public void run() {
         this.runner.run(new CountdownAnimation(3, 3, this.sprites));
         this.running = true;
-        this.createBallsOnTopOfPaddle();
         this.runner.run(this);
-        if(this.isWinner())
-        {
-            this.runner.run(new WinScreen(this.scoreCounter.getValue()));
-        }
-        
+        this.running=false;
     }
 
     /**

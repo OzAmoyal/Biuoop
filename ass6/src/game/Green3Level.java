@@ -51,7 +51,7 @@ public class Green3Level implements LevelInformation {
     @Override
     public Sprite getBackground() {
         Background background=new Background();
-        Block bgBlock=new Block(new Point(0, 0), new Color(0,128,0), GameLevel.GUI_HEIGHT, GameLevel.GUI_WIDTH);
+        Block bgBlock=new Block(new Point(0, 0), new Color(0,128,0), GameFlow.GUI_HEIGHT, GameFlow.GUI_WIDTH);
         background.addToBackground(bgBlock);
         Rectangle antena= new Rectangle(new Point(125, 300), 10, 500);
         antena.setColor(new Color(105,105,105));
@@ -88,25 +88,25 @@ public class Green3Level implements LevelInformation {
     @Override
     public List<Block> blocks() {
         List<Block> blocks=new ArrayList<Block>();
-        for (int i = 280; i < (GameLevel.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
+        for (int i = 280; i < (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
             Block block = new Block(new Point(i, 200), Color.LIGHT_GRAY, BLOCK_HEIGHT, BLOCK_WIDTH);
             blocks.add(block);
             this.numberOfBlocks+=1;
             
         }
-        for (int i = 330; i < (GameLevel.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
+        for (int i = 330; i < (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
             Block block = new Block(new Point(i, 220), Color.YELLOW, BLOCK_HEIGHT, BLOCK_WIDTH);
             blocks.add(block);
             this.numberOfBlocks+=1;
 
         }
-        for (int i = 380; i < (GameLevel.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
+        for (int i = 380; i < (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
             Block block = new Block(new Point(i, 240), Color.RED, BLOCK_HEIGHT, BLOCK_WIDTH);
             blocks.add(block);
             this.numberOfBlocks+=1;
 
         }
-        for (int i = 430; i < (GameLevel.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
+        for (int i = 430; i < (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
             Block block = new Block(new Point(i, 260), Color.BLUE, BLOCK_HEIGHT, BLOCK_WIDTH);
             blocks.add(block);
             this.numberOfBlocks+=1;

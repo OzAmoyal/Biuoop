@@ -26,8 +26,8 @@ public class CountdownAnimation implements Animation {
          
         }
     public void doOneFrame(DrawSurface d) {
-        int blockY=(GameLevel.GUI_HEIGHT-CBLOCKHEIGHT)/2;
-        int blockX=(GameLevel.GUI_WIDTH-CBLOCKWIDTH)/2;
+        int blockY=(GameFlow.GUI_HEIGHT-CBLOCKHEIGHT)/2;
+        int blockX=(GameFlow.GUI_WIDTH-CBLOCKWIDTH)/2;
         TextBlock cBlock=new TextBlock(new Point(blockX,blockY), Color.LIGHT_GRAY,CBLOCKHEIGHT , CBLOCKWIDTH, this.currentCount.toString());
         this.gameScreen.addSprite(cBlock);
         this.gameScreen.drawAllOn(d);

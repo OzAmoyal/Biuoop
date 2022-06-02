@@ -52,7 +52,7 @@ public class Paddle implements Sprite, Collidable {
      * @return true if border is crossed, false otherwise.
      */
     private boolean isRightBorderCrossed(Point p) {
-        return (int) p.getX() + this.paddle.getWidth() > (int) (GameLevel.GUI_WIDTH - GameLevel.BORDER_SIZE);
+        return (int) p.getX() + this.paddle.getWidth() > (int) (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE);
     }
 
     /**
@@ -74,7 +74,7 @@ public class Paddle implements Sprite, Collidable {
         Point newP = new Point(this.paddle.getUpperLeft().getX() + this.paddleSpeed, this.paddle.getUpperLeft().getY());
         // check if the paddle is in borders.
         if (this.isRightBorderCrossed(newP)) {
-            newP = new Point(GameLevel.GUI_WIDTH - GameLevel.BORDER_SIZE - this.paddle.getWidth(), this.paddle.getUpperLeft().getY());
+            newP = new Point(GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE - this.paddle.getWidth(), this.paddle.getUpperLeft().getY());
         }
         this.paddle = new Rectangle(newP, this.paddle.getWidth(), this.paddle.getHeight());
     }
