@@ -93,7 +93,7 @@ public class Green3Level implements LevelInformation {
             blocks.add(block);
             this.numberOfBlocks+=1;
             
-        }
+        }/*
         for (int i = 330; i < (GameFlow.GUI_WIDTH - GameLevel.BORDER_SIZE); i += 50) {
             Block block = new Block(new Point(i, 220), Color.YELLOW, BLOCK_HEIGHT, BLOCK_WIDTH);
             blocks.add(block);
@@ -111,7 +111,7 @@ public class Green3Level implements LevelInformation {
             blocks.add(block);
             this.numberOfBlocks+=1;
 
-        }
+        }*/
 
         
         return blocks;

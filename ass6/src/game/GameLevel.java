@@ -63,7 +63,7 @@ public class GameLevel implements Animation {
         // this.gui.show(d);
         this.sprites.notifyAllTimePassed();
         if (this.keyboard.isPressed("p")) {
-            this.runner.run(new KeyPressStoppableAnimation(this.keyboard, "space", new PauseScreen(this.keyboard)));
+            this.runner.run(new KeyPressStoppableAnimation(this.keyboard, "space", new PauseScreen()));
         }
 
         if (isWinner()) {

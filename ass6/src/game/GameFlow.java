@@ -35,9 +35,12 @@ static final int GUI_HEIGHT = 600;
  
           if (level.getRemainingBalls().getValue()==0) {
              this.animationRunner.run(new KeyPressStoppableAnimation(this.keyboardSensor, KeyboardSensor.SPACE_KEY,new LoseScreen(scoreCounter.getValue())));
+             gui.close();
              return;
           }
- 
        }
+       this.animationRunner.run(new KeyPressStoppableAnimation(this.keyboardSensor,KeyboardSensor.SPACE_KEY,new WinScreen(scoreCounter.getValue())));
+       gui.close();
+       return;
     }
  }
