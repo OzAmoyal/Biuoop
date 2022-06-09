@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch CreateHypernymDatabase",
+            "request": "launch",
+            "mainClass": "CreateHypernymDatabase",
+            "projectName": "Biuoop_18205506"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -16,7 +23,10 @@
             "request": "launch",
             "mainClass": "Ass5Game",
             "projectName": "Biuoop_9b5b7460",
-            "classPaths": ["C:/Users/uziam/OneDrive/מסמכים/Biuoop/ass6/biuoop-1.4.jar","$Auto"]
+            "classPaths": [
+                "C:/Users/uziam/OneDrive/מסמכים/Biuoop/ass6/biuoop-1.4.jar",
+                "$Auto"
+            ]
         }
     ]
 }
