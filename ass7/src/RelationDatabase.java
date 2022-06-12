@@ -23,9 +23,7 @@ public void insert(String hypernym,String hyponym){
 }
 public void export(File file) throws IOException{
     file.createNewFile();
-     OutputStreamWriter os = new OutputStreamWriter(new FileOutputStream (file)); // wrapper that can write strings
-        
-
+     OutputStreamWriter os = new OutputStreamWriter(new FileOutputStream (file)); // wrapper that can write strings      
     for (Map.Entry<String, Map<String,Integer>> hypernyms : relationMap.entrySet()) {
         String key = hypernyms.getKey();
         Map<String,Integer> hypernymMap = hypernyms.getValue();
@@ -39,7 +37,6 @@ public void export(File file) throws IOException{
             sb.replace(lastComma, lastComma+1, "");
         }
         os.write(sb.toString()); 
-        
     }
     os.close();
 }
