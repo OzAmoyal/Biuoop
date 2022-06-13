@@ -13,7 +13,7 @@ public class HypernymDatabase {
     private List<HearstPattern> patterns;
 
     public HypernymDatabase() {
-        this.relationMap = new TreeMap<>();
+        this.relationMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         this.patterns = createPatterns();
 
     }
@@ -59,6 +59,15 @@ public class HypernymDatabase {
             os.write(hypernyms.getValue().toString() + "\n");
         }
         os.close();
+    }
+    public void filterHypernyms(){
+        Map<String, Hypernym> hypernyms=new TreeMap<>(this.relationMap);
+        for(Map.Entry<String, Hypernym> entry:hypernyms.entrySet()){
+            if(entry.getValue().getNumOfHyponyms()<3){
+                this.relationMap.remove(entry.getKey());
+            }
+        }
+
     }
 
     private static List<HearstPattern> createPatterns() {

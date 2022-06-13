@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public abstract class HearstPattern {
     private RegexMatcher npMatcher;
-    public static final String NP="<np>([\\w ])*</np>";
+    public static final String NP="<np>([^<])*</np>";
     public HearstPattern() {
         Pattern pattern = Pattern.compile(NP);
         this.npMatcher = new RegexMatcher(pattern);
@@ -27,13 +27,13 @@ public abstract class HearstPattern {
         return this.npMatcher.findMatches(line);
     }
     public Hypernym getHypernym(List<String> matches){
-        return new Hypernym(matches.get(0));
+        return new Hypernym(matches.get(0).toLowerCase());
     }
     public List<NounPhrase> getHyponymList(List<String> matches)
     {
     List<NounPhrase> nounPhrases=new ArrayList<>();
     for(int i=1;i<matches.size();i++){
-        nounPhrases.add(NounPhrase.getNounPhrase(matches.get(i)));
+        nounPhrases.add(NounPhrase.getNounPhrase(matches.get(i).toLowerCase()));
     }
     return nounPhrases;
     }

@@ -3,7 +3,7 @@ import java.util.TreeMap;
 
 public class NounPhrase implements Comparable<NounPhrase>{
     private String name;
-    private static Map<String,NounPhrase> NounPhraseDB = new TreeMap<>();
+    private static Map<String,NounPhrase> NounPhraseDB = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private NounPhrase(String name)
     {
         this.name=name;

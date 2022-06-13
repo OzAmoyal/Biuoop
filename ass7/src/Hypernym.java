@@ -19,6 +19,9 @@ public class Hypernym {
     }
     this.hyponyms.put(hyponym, this.hyponyms.get(hyponym)+1);
         }
+public int getNumOfHyponyms(){
+    return hyponyms.size();
+}
 
         @Override
         public String toString() {
