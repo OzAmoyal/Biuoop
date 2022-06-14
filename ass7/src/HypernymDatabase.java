@@ -21,6 +21,9 @@ public class HypernymDatabase {
     public void readData(BufferedReader reader) throws IOException {
         String line;
         while ((line = reader.readLine()) != null) { // ’null ’->no more data in the stream
+            if(line.isEmpty()){
+                continue;
+            }
             this.getRelationFromLine(line);
 
         }
@@ -42,7 +45,8 @@ public class HypernymDatabase {
                     if (!matches.isEmpty()) {
                         matches = pattern.removeTags(matches);
                         Hypernym hypernym = pattern.getHypernym(matches);
-                        for (NounPhrase hyponym : pattern.getHyponymList(matches)) {
+                        List<NounPhrase> hyponyms = pattern.getHyponymList(matches);
+                        for (NounPhrase hyponym : hyponyms) {
                             this.insert(hypernym, hyponym);
                         }
                     }

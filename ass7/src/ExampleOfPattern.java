@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class ExampleOfPattern extends HearstPattern {
 private RegexMatcher matcher;
-public static final String EXAMPLE_OF = NP+"(,)? which is ((an example|a kind|a class) of)? "+NP;
+public static final String EXAMPLE_OF = NP+"(,| )*which(,| )*is(,| )*((an( )*example|a( )*kind|a( )*class)?( )*(of)?)?( )*"+NP;
 public ExampleOfPattern(){
     super();
     Pattern pattern=Pattern.compile(EXAMPLE_OF);

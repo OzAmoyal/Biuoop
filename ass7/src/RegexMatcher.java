@@ -11,7 +11,7 @@ public class RegexMatcher {
         ArrayList<String> matches= new ArrayList<>();
         Matcher mathcer = pattern.matcher(line);
         while(mathcer.find()){
-            matches.add(mathcer.group());
+            matches.add(line.substring(mathcer.start(),mathcer.end()));
         }
         return matches;
     }
