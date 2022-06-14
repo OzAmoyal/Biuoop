@@ -12,17 +12,16 @@ public ExampleOfPattern(){
 }
 
     @Override
-    public Hypernym getHypernym(List<String> matches){
-        return new Hypernym(matches.get(1).toLowerCase());
+    public Hypernym getHypernym(HypernymDatabase db, List<String> matches){
+        return db.getHypernym(matches.get(1));
 
     }
     @Override
     public List<NounPhrase> getHyponymList(List<String> matches)
     {
     List<NounPhrase> nounPhrases=new ArrayList<>();
-    nounPhrases.add(NounPhrase.getNounPhrase(matches.get(0).toLowerCase()));
+    nounPhrases.add(NounPhrase.getNounPhrase(matches.get(0)));
     return nounPhrases;
-        
     }
 
     @Override

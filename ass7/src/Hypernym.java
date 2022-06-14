@@ -1,25 +1,26 @@
 import java.util.Map;
 import java.util.TreeMap;
 
+
 public class Hypernym {
     private NounPhrase np;
     private Map<NounPhrase,Integer> hyponyms;
     public Hypernym(String name)
     {
     this.np=NounPhrase.getNounPhrase(name);
-    hyponyms=new TreeMap<>();
+    hyponyms=new TreeMap<NounPhrase,Integer>();
     }
     public String getName(){
         return this.np.getName();
     }
     public void relate(NounPhrase hyponym){
-        if(!this.hyponyms.containsKey(hyponym)){
-            this.hyponyms.put(hyponym,1);
-        return;
+        if(this.hyponyms.containsKey(hyponym)){
+            this.hyponyms.put(hyponym,this.hyponyms.get(hyponym)+1);
+            return;
     }
-    this.hyponyms.put(hyponym, this.hyponyms.get(hyponym)+1);
+    this.hyponyms.put(hyponym, 1);
         }
-public int getNumOfHyponyms(){
+    public int getNumOfHyponyms(){
     return hyponyms.size();
 }
 
@@ -36,8 +37,11 @@ public int getNumOfHyponyms(){
             }
          return sb.toString();   
         }
-        
-        }
-    
+       
+    public void sortByOccurrences(){
+    this.hyponyms=HyponymComparator.sortValues(this.hyponyms);       
+    }
+
+}
     
 

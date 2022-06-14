@@ -26,14 +26,14 @@ public abstract class HearstPattern {
     public List<String> getMatchesList(String line){
         return this.npMatcher.findMatches(line);
     }
-    public Hypernym getHypernym(List<String> matches){
-        return new Hypernym(matches.get(0).toLowerCase());
+    public Hypernym getHypernym(HypernymDatabase db,List<String> matches){
+        return db.getHypernym(matches.get(0));
     }
     public List<NounPhrase> getHyponymList(List<String> matches)
     {
     List<NounPhrase> nounPhrases=new ArrayList<>();
     for(int i=1;i<matches.size();i++){
-        nounPhrases.add(NounPhrase.getNounPhrase(matches.get(i).toLowerCase()));
+        nounPhrases.add(NounPhrase.getNounPhrase(matches.get(i)));
     }
     return nounPhrases;
     }

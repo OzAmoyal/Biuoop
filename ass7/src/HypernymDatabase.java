@@ -17,7 +17,14 @@ public class HypernymDatabase {
         this.patterns = createPatterns();
 
     }
-
+    public Hypernym getHypernym(String name){
+        if(this.relationMap.containsKey(name)){
+            return this.relationMap.get(name);
+        }
+        Hypernym hypernym=new Hypernym(name);
+        this.relationMap.put(name, hypernym);
+        return hypernym;
+    }
     public void readData(BufferedReader reader) throws IOException {
         String line;
         while ((line = reader.readLine()) != null) { // ’null ’->no more data in the stream
@@ -44,7 +51,7 @@ public class HypernymDatabase {
                     List<String> matches = pattern.getMatchesList(ps);
                     if (!matches.isEmpty()) {
                         matches = pattern.removeTags(matches);
-                        Hypernym hypernym = pattern.getHypernym(matches);
+                        Hypernym hypernym = pattern.getHypernym(this,matches);
                         List<NounPhrase> hyponyms = pattern.getHyponymList(matches);
                         for (NounPhrase hyponym : hyponyms) {
                             this.insert(hypernym, hyponym);
@@ -60,6 +67,7 @@ public class HypernymDatabase {
         file.createNewFile();
         OutputStreamWriter os = new OutputStreamWriter(new FileOutputStream(file)); // wrapper that can write strings
         for (Map.Entry<String, Hypernym> hypernyms : relationMap.entrySet()) {
+            hypernyms.getValue().sortByOccurrences();
             os.write(hypernyms.getValue().toString() + "\n");
         }
         os.close();

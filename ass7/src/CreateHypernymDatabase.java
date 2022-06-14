@@ -9,11 +9,13 @@ public class CreateHypernymDatabase {
     public static void main(String[] args) {
 
         long startTime = System.nanoTime();
-        String corpus = "C:/Users/uziam/Code/corpus/";
+        String corpus1 = "C:/Users/uziam/Code/minicorpus.txt";
+        String corpus2 = "C:/Users/uziam/Code/corpus/";
         String output = "./data.txt";
         HypernymDatabase db = new HypernymDatabase();
         BufferedReader is = null;
-        File dir = new File(corpus);
+        File dir = new File(corpus2);
+        File file1 = new File(corpus1);
         File[] files = dir.listFiles();
         File outputFile = new File(output);
         for (File file : files) {
@@ -38,6 +40,7 @@ public class CreateHypernymDatabase {
             }
         }
         db.filterHypernyms();
+        
         try {
             db.export(outputFile);
         } catch (IOException e) {
