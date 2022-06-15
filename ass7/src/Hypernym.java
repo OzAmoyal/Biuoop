@@ -39,7 +39,18 @@ public class Hypernym {
         }
        
     public void sortByOccurrences(){
-    this.hyponyms=HyponymComparator.sortValues(this.hyponyms);       
+    this.hyponyms=HyponymComparator.sortValues(this.hyponyms);      
+    }
+    public int getMaxOccurence(){
+        int max=1;
+        for(Map.Entry<NounPhrase,Integer> hyponym : hyponyms.entrySet()) {
+            if(hyponym.getValue()>max)
+            {
+                max=hyponym.getValue();
+            }
+        }
+        return max;
+
     }
 
 }

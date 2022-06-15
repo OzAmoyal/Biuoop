@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class HypernymDatabase {
-    private Map<String, Hypernym> relationMap;
-    private List<HearstPattern> patterns;
+    protected Map<String, Hypernym> relationMap;
+    protected List<HearstPattern> patterns;
 
     public HypernymDatabase() {
         this.relationMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
@@ -79,8 +79,9 @@ public class HypernymDatabase {
                 this.relationMap.remove(entry.getKey());
             }
         }
+    } 
 
-    }
+    
 
     private static List<HearstPattern> createPatterns() {
         List<HearstPattern> patterns = new ArrayList<>();

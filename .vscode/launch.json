@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch DiscoverHypernym",
+            "request": "launch",
+            "mainClass": "DiscoverHypernym",
+            "projectName": "Biuoop_18205506"
+        },
+        {
+            "type": "java",
             "name": "Launch CreateHypernymDatabase",
             "request": "launch",
             "mainClass": "CreateHypernymDatabase",
