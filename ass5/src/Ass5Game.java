@@ -1,5 +1,3 @@
-
-//oz amoyal 207231663
 import game.Game;
 /**
  * class to call the functions and play the game.

@@ -1,4 +1,3 @@
-//oz amoyal 207231663
 package game.interfaces;
 
 /**

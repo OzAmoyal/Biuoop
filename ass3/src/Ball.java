@@ -1,4 +1,3 @@
-//oz amoyal 207231663
 import biuoop.DrawSurface;
 /**
  * this class repressents a 2D ball with radius, color, speed and center point.

@@ -3,5 +3,8 @@
         "lib/**/*.jar",
         "ass6/biuoop-1.4.jar"
     ],
-    "java.checkstyle.configuration": "https://raw.githubusercontent.com/wiki/ariecattan/biuoop2022/data/checkstyle/biuoop.xml"
+    "java.checkstyle.configuration": "https://raw.githubusercontent.com/wiki/ariecattan/biuoop2022/data/checkstyle/biuoop.xml",
+    "java.project.sourcePaths": [
+        "ass1\\src"
+    ]
 }

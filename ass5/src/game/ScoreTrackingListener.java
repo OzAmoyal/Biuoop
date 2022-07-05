@@ -1,4 +1,3 @@
-//oz amoyal 207231663
 package game;
 /**
  * this class updates the score counter when blocks are being hit and removed.

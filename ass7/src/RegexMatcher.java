@@ -1,5 +1,3 @@
-//oz amoyal 207231663
-
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

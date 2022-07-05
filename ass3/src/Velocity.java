@@ -1,4 +1,3 @@
-//oz amoyal 207231663
 /**
  * this class repressents velocity of moving object.
  * Velocity specifies the change in position on the `x` and the `y` axis.

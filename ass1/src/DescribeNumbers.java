@@ -1,4 +1,3 @@
-// 207231663 Oz Shlomi Amoyal
 /**
  * @author Oz Amoyal
  */

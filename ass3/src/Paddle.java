@@ -1,4 +1,3 @@
-//oz amoyal 207231663
 import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
 

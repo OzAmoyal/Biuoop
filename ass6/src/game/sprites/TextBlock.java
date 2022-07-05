@@ -1,5 +1,3 @@
-//oz amoyal 207231663
-
 package game.sprites;
 
 import geometry.Point;

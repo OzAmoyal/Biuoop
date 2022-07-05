@@ -1,5 +1,3 @@
-
-//207231663
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;

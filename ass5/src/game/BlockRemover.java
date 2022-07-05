@@ -1,4 +1,3 @@
-//oz amoyal 207231663
 package game;
 
 /** a BlockRemover is in charge of removing blocks from the game, as well as keeping count

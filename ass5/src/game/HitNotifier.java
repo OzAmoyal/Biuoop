@@ -1,4 +1,3 @@
-//oz amoyal 207231663
 package game;
 /**
  * interface for Objects that notify other objects about a hit occuring to them.

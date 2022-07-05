@@ -1,4 +1,3 @@
-//oz amoyal 207231663
 import biuoop.GUI;
 import biuoop.Sleeper;
 import biuoop.DrawSurface;

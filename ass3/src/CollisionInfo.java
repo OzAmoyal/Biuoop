@@ -1,5 +1,3 @@
-//oz amoyal 207231663
-
 /**
  * CollisionInfo contains information about where the collision has happened, with which Collidable object it happed.
  *

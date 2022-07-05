@@ -1,4 +1,3 @@
-//oz amoyal 2072316663
 package game.interfaces;
 
 import game.sprites.Ball;

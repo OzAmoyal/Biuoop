@@ -1,4 +1,3 @@
-// 207231663 Oz Shlomi Amoyal
 /**
  * @author Oz Amoyal
  */
@@ -54,6 +53,5 @@ public class Factorial {
             int n = Integer.parseInt(args[0]);
             System.out.println("recursive: " + factorialIter(n));
             System.out.println("iterative: " + factorialRecursive(n));
-    
         }
     }

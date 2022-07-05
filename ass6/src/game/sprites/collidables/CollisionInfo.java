@@ -1,6 +1,3 @@
-//oz amoyal 207231663
-
-
 package game.sprites.collidables;
 import game.interfaces.Collidable;
 import geometry.Point;
